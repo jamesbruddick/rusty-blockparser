@@ -3,6 +3,7 @@ use clap::{ArgMatches, Command};
 use crate::blockchain::proto::block::Block;
 use crate::common::Result;
 
+pub mod addressdump;
 pub mod balances;
 mod common;
 pub mod csvdump;

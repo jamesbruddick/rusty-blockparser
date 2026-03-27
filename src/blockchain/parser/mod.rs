@@ -56,7 +56,7 @@ impl BlockchainParser {
 
         self.on_start(self.cur_height)?;
 
-        for height in self.cur_height..self.chain_storage.max_height() {
+        for height in self.cur_height..=self.chain_storage.max_height() {
             let block = match self.chain_storage.get_block(height) {
                 Ok(block) => match block {
                     Some(block) => block,

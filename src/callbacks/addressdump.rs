@@ -16,7 +16,7 @@ impl AddressDump {
     pub fn new(_matches: &ArgMatches) -> Result<Self> {
         let file = File::create("addresses.txt")?;
         let hasher = BuildHasherDefault::<FxHasher>::default();
-        let seen_hashes = HashSet::with_capacity_and_hasher(2_000_000_000, hasher);
+        let seen_hashes = HashSet::with_capacity_and_hasher(1_800_000_000, hasher);
         
         Ok(AddressDump {
             file: BufWriter::new(file),
@@ -57,7 +57,7 @@ impl Callback for AddressDump {
 
         if height % 10000 == 0 {
             let usage = self.seen_hashes.len();
-            if usage > 2_000_000_000 {
+            if usage > 1_800_000_000 {
                 error!("CRITICAL: RAM CAPACITY REACHED. SHUTTING DOWN TO PREVENT CRASH.");
                 std::process::exit(1);
             }

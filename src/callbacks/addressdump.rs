@@ -13,8 +13,13 @@ pub struct AddressDump {
 }
 
 impl AddressDump {
-    pub fn new(_matches: &ArgMatches) -> Result<Self> {
-        let file = File::create("addresses.txt")?;
+    pub fn new(_matches: &ArgMatches, end_height: Option<u64>) -> Result<Self> {
+        let filename = match end_height {
+            Some(end) => format!("{}.addresses.txt", end),
+            None => "addresses.txt".to_string(),
+        };
+
+        let file = File::create(filename)?;
         let hasher = BuildHasherDefault::<FxHasher>::default();
         let seen_hashes = HashSet::with_capacity_and_hasher(1_800_000_000, hasher);
         
@@ -31,7 +36,7 @@ impl Callback for AddressDump {
     }
 
     fn new(matches: &ArgMatches) -> Result<Self> {
-        Self::new(matches)
+        AddressDump::new(matches, None)
     }
 
     fn on_start(&mut self, _block_height: u64) -> Result<()> {

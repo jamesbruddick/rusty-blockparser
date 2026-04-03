@@ -211,7 +211,7 @@ fn parse_args(matches: clap::ArgMatches) -> Result<ParserOptions> {
         Some(("unspentcsvdump", matches)) => Box::new(UnspentCsvDump::new(matches)?),
         Some(("balances", matches)) => Box::new(Balances::new(matches)?),
         Some(("opreturn", matches)) => Box::new(OpReturn::new(matches)?),
-        Some(("addressdump", matches)) => Box::new(AddressDump::new(matches)?),
+        Some(("addressdump", matches)) => Box::new(AddressDump::new(matches, end)?),
         _ => {
             clap::error::Error::<clap::error::DefaultFormatter>::raw(
                 clap::error::ErrorKind::MissingSubcommand,

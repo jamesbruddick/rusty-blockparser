@@ -9,6 +9,7 @@ use crate::blockchain::parser::chain::ChainStorage;
 use crate::blockchain::parser::types::{Bitcoin, CoinType};
 use crate::callbacks::Callback;
 use crate::callbacks::addressdump::AddressDump;
+use crate::callbacks::blockhashdump::BlockHashDump;
 use crate::callbacks::balances::Balances;
 use crate::callbacks::csvdump::CsvDump;
 use crate::callbacks::opreturn::OpReturn;
@@ -131,6 +132,7 @@ fn command() -> Command {
     .subcommand(Balances::build_subcommand())
     .subcommand(OpReturn::build_subcommand())
     .subcommand(AddressDump::build_subcommand())
+    .subcommand(BlockHashDump::build_subcommand())
 }
 
 fn main() {
@@ -212,6 +214,7 @@ fn parse_args(matches: clap::ArgMatches) -> Result<ParserOptions> {
         Some(("balances", matches)) => Box::new(Balances::new(matches)?),
         Some(("opreturn", matches)) => Box::new(OpReturn::new(matches)?),
         Some(("addressdump", matches)) => Box::new(AddressDump::new(matches, end)?),
+        Some(("blockhashdump", matches)) => Box::new(BlockHashDump::new(matches, end)?),
         _ => {
             clap::error::Error::<clap::error::DefaultFormatter>::raw(
                 clap::error::ErrorKind::MissingSubcommand,

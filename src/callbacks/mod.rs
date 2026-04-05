@@ -4,6 +4,7 @@ use crate::blockchain::proto::block::Block;
 use crate::common::Result;
 
 pub mod addressdump;
+pub mod blockhashdump;
 pub mod balances;
 mod common;
 pub mod csvdump;
